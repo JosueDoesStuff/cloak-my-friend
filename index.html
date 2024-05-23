@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert Login System</title>
+    <style>
+        html {
+            margin-top: 15px;
+            color: white;
+            font-family: 'Rubik', sans-serif;
+            text-align: center;
+        }
+        h1 {
+            position: absolute;
+            top: 45%;
+            right: 50%;
+            transform: translate(50%);
+            font-weight: 100;
+            font-size: 1.5rem;
+        }
+        button {
+            padding: 20px 40px 20px 40px;
+            height: auto;
+            border: none;
+            color: var(--light-color);
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.3rem;
+            font-family: 'Rubik', sans-serif;
+            cursor: pointer;
+            background-color: #f75dfc;
+            border-radius: 20px;
+            transition: opacity 0.3s ease;
+            transition: transform 0.1s ease;
+            margin-top: 200px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+    <script>
+        function Go() {
+            let url = 'xn--mgbju7exa.vercel.app';
+            maskedWindow = window.open('about:blank');
+
+            const doc = maskedWindow.document;
+
+            // Create and set favicon
+            var fav = doc.createElement('link');
+            fav.setAttribute("rel", "icon");
+            fav.setAttribute("type", "image/x-icon");
+            fav.setAttribute("href", "https://cdn.jsdelivr.net/npm/twemoji@11.3.0/2/svg/1f921.svg");
+            doc.querySelector("head").appendChild(fav);
+
+            // Create and set title
+            var tit = doc.createElement('title');
+            tit.innerHTML = "Home";
+            doc.querySelector("head").appendChild(tit);
+
+            let embed = doc.createElement('embed');
+            if (url.includes('https://') || url.includes('http://')) {
+                embed.src = url;
+            } else {
+                embed.src = 'https://' + url;
+            }
+
+            embed.width = '100%';
+            embed.height = '100%';
+            embed.style.position = 'fixed';
+            embed.style.top = '0';
+            embed.style.left = '0';
+
+            let script = document.createElement('script');
+            script.innerHTML = `
+                window.onbeforeunload = function() {
+                    return "reloading the site will end the about:blank session. Are you sure you want to continue?";
+                };
+            `;
+
+            doc.body.appendChild(embed);
+            doc.body.appendChild(script);
+        }
+
+        function login() {
+            let isAuthenticated = false;
+
+            while (!isAuthenticated) {
+                const username = prompt('Enter your username:');
+                const password = prompt('Enter your password:');
+
+                if (username === 'user' && password === 'pass') {
+                    alert('Login successful!');
+                    document.body.innerHTML = ``;
+                    isAuthenticated = true;
+
+                    // Add event listener for the "2" key
+                    document.addEventListener('keydown', function(event) {
+                        if (event.key === '2') {
+                            Go();
+                        }
+                    });
+                } else {
+                    alert('Login failed! Now opening pop-ups.');
+                    for (let i = 0; i < 5; i++) {
+                        window.open('https://www.ixl.com', '_blank', 'width=600,height=400');
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body onload="login()">
+</body>
+</html>
